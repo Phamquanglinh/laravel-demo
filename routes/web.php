@@ -16,3 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/demo',['as'=>'demo',function(){
+    return "url: ".route('demo');
+}]);
+
+Route::get('/hello/{name}/{age}',function($name,$age){
+    return 'Xin chào '.$name." ".$age." tuổi";
+})->where(['age'=>'[0-9]+']);
+
+Route::get('/hi/{name}',function($name){
+    return 'Xin chào '.$name;
+});
+
+Route::group(['prefix'=>"admin"], function(){
+    Route::get('user/',function (){
+        return "url: ".route('admin.user');
+    })->name('admin.user');
+    Route::get('teach/',function (){
+        return "Admin => Teach";
+    });
+    Route::get('student/',function (){
+        return "Admin => Student";
+    });
+
+});
